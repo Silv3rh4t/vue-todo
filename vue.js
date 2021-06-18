@@ -30,6 +30,34 @@ Vue.component("todo-item",{
     `
 });
 
+Vue.component("todo-item-new",{
+    props:['item', 'index'],
+    template:`
+        <div class="todo-item my-1 py-2 px-1">
+            <div class="row">
+                <div class="col-1 my-auto">
+                    <div class="check-box float-end">
+                        <input type="checkbox" class="checkbox-round" @change="$emit('toggle-check', index)" :checked="item.checked">
+                    </div>
+                </div>
+                <div class="col-10">
+                    <div class="todo-title">
+                        <strike @click="$emit('toggle-check', index)" v-if="item.checked">{{item.title}}</strike>
+                        <span @click="$emit('toggle-check', index)" v-if="!item.checked">{{item.title}}</span>        
+                    </div>
+                    <span class="todo-date">{{item.date}}</span>
+                    <span class="delete-button" @click="$emit('del', index)">
+                        <i class="fa fa-times"></i>
+                    </span> 
+                </div>
+                <div class="col-1 priority my-auto">
+                    {{item.priority}}
+                </div>
+            </div> 
+        </div>
+    `
+});
+
 var app = new Vue({
     el:"#app",
     data:{

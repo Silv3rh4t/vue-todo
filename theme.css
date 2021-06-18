@@ -1,0 +1,77 @@
+:root{
+    --accent:#2c7a26;
+}
+
+body{
+    background: url("bg.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: white;
+}
+mark{
+    background-color: var(--accent);
+}
+.addTask{
+    position: fixed;
+    bottom: 25px;
+    left: 10px;
+    border-radius: 50%;
+    width: 2.8em;
+    height: 2.8em;
+}
+.form{
+    position: fixed;
+    bottom:65px;
+}
+.form-control{
+    margin-bottom: 10px;
+}
+#input-priority{
+    width:25%;
+}
+#input-date{
+    width:81%;
+}
+
+.fa-heart{
+    color:var(--accent);
+}
+a{
+    color:white;
+}
+
+.todo-item{
+    background-color: rgba(4, 48, 4, 0.562);
+}
+.todo-title{
+    font-size: 1.2rem;
+}
+.todo-date{
+    color: grey;
+    font-size: 0.8rem;
+}
+.delete-button{
+    color:red;
+}
+
+.checkbox-round {
+    width: 1.2em;
+    height: 1.2em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-round:checked {
+    background-color: grey;
+}
+.priority{
+    border-left:2px solid black;
+    font-size: 1.8rem;
+}
