@@ -15,7 +15,7 @@ Vue.component("todo-item",{
     template:`
         <div class="row my-1"> 
             <div class="col-1">{{item.priority}}</div>      
-            <div class="col-3"><a href="#" class="text-white">
+            <div class="col-3"><a href="#">
                 <strike @click="$emit('toggle-check', index)" v-if="item.checked">{{item.title}}</strike>
                 <span @click="$emit('toggle-check', index)" v-if="!item.checked">{{item.title}}</span>
             </a></div>
