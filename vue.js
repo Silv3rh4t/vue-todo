@@ -1,12 +1,12 @@
 var list = [{
     priority:1,
-    title:"Learn Vue",
-    date:"2021-02-12",
+    title:"Make Mobile Friendly",
+    date:"2021-06-21",
     checked:false
 },{
     priority:3,
-    title:"Learn Vue better",
-    date:"2021-03-05",
+    title:"Add Readme.md",
+    date:"2021-06-19",
     checked:true
 }];
 
