@@ -2,6 +2,8 @@
     --accent:#2c7a26;
 }
 
+
+
 body{
     background: url("bg.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -12,6 +14,9 @@ body{
 }
 mark{
     background-color: var(--accent);
+}
+.fa-sort-amount-asc{
+    font-size:1.8em;
 }
 .addTask{
     position: fixed;
@@ -41,6 +46,9 @@ mark{
 a{
     color:white;
 }
+a:hover{
+    color:var(--accent);
+}
 
 .todo-item{
     background-color: rgba(4, 48, 4, 0.562);
@@ -50,7 +58,7 @@ a{
 }
 .todo-date{
     color: grey;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 .delete-button{
     color:red;
@@ -73,5 +81,5 @@ a{
 }
 .priority{
     border-left:2px solid black;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }

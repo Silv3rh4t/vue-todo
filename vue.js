@@ -1,8 +1,13 @@
 var list = [{
     priority:1,
-    title:"Make Mobile Friendly",
+    title:"Fix bootstrap issues",
     date:"2021-06-21",
     checked:false
+},{
+    priority:1,
+    title:"Make Mobile Friendly",
+    date:"2021-06-21",
+    checked:true
 },{
     priority:3,
     title:"Add Readme.md",
@@ -13,34 +18,14 @@ var list = [{
 Vue.component("todo-item",{
     props:['item', 'index'],
     template:`
-        <div class="row my-1"> 
-            <div class="col-1">{{item.priority}}</div>      
-            <div class="col-3"><a href="#">
-                <strike @click="$emit('toggle-check', index)" v-if="item.checked">{{item.title}}</strike>
-                <span @click="$emit('toggle-check', index)" v-if="!item.checked">{{item.title}}</span>
-            </a></div>
-            <div class="col-1"></div>
-            <div class="col-3">{{item.date}}</div>
-            <div class="col-1"> 
-                <button @click="$emit('del', index)" class="btn btn-light btn-sm">
-                    <i class="fa fa-trash-o"></i>
-                </button>
-            </div>
-        </div>
-    `
-});
-
-Vue.component("todo-item-new",{
-    props:['item', 'index'],
-    template:`
         <div class="todo-item my-1 py-2 px-1">
             <div class="row">
-                <div class="col-1 my-auto">
+                <div class="col-2 my-auto">
                     <div class="check-box float-end">
                         <input type="checkbox" class="checkbox-round" @change="$emit('toggle-check', index)" :checked="item.checked">
                     </div>
                 </div>
-                <div class="col-10">
+                <div class="col-8">
                     <div class="todo-title">
                         <strike @click="$emit('toggle-check', index)" v-if="item.checked">{{item.title}}</strike>
                         <span @click="$emit('toggle-check', index)" v-if="!item.checked">{{item.title}}</span>        
@@ -50,7 +35,7 @@ Vue.component("todo-item-new",{
                         <i class="fa fa-times"></i>
                     </span> 
                 </div>
-                <div class="col-1 priority my-auto">
+                <div class="col-2 priority my-auto">
                     {{item.priority}}
                 </div>
             </div> 
@@ -64,7 +49,8 @@ var app = new Vue({
         todos: list,
         newTitle:"",
         newDate:"",
-        newPriority:4
+        newPriority:4,
+        sortByPriorityFlag:true
     },
     methods:{
         addTodo: function(){
@@ -89,9 +75,22 @@ var app = new Vue({
             this.todos.splice(index, 1);
         },
         sortList: function(){
+            this.sortByPriorityFlag ? this.sortByPriority() : this.sortByDate();
+            
+        },
+        sortByPriority: function(){
             this.todos.sort(function(a, b){
                 if(a.checked == b.checked){
-                    return a.priority == b.priority ? compareDates(a.date, b.date) : a.priority - b.priority;                   
+                    return a.priority == b.priority ? compareDates(a.date, b.date) : a.priority - b.priority;
+                }else{
+                    return !a.checked?-1:1;
+                }
+            });
+        },
+        sortByDate: function(){
+            this.todos.sort(function(a, b){
+                if(a.checked == b.checked){
+                    return compareDates(a.date, b.date) == 0 ? a.priority - b.priority : compareDates(a.date, b.date);
                 }else{
                     return !a.checked?-1:1;
                 }

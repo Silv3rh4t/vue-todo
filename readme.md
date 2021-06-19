@@ -8,4 +8,13 @@ Background Picture by Daniel Olah, retrieved from Unsplash.
 
 Changed Layout to make more mobile friendly
 
+## v2.1
+
+Design problems resolved
+Added Sort by Priority and Sort by Date option
+
+## Upcoming
+
+Saving data to browser
+
 
