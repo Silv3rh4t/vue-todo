@@ -23,9 +23,9 @@
             <div class="col-10">
                 <h1 class="display-5 my-3"><mark>Todo</mark> List</h1>
             </div>
-            <div class="col-2 my-auto">
+            <div class="col-2 my-auto btn-toolbar">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle btn-inline" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-sort-amount-asc"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -34,7 +34,9 @@
                         <li><a @click="sortByDate" class="dropdown-item" href="#">Date</a></li>
                         <li><a class="dropdown-item" href="#"></a></li>
                     </ul>
-                  </div>
+                </div>
+                &nbsp;
+                <button class="btn btn-secondary btn-inline" @click="clearTodos" ><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
         
@@ -51,15 +53,18 @@
             v-on:del="del($event)"
         ></todo-item>
 
-        <form @submit.prevent="addTodo">
+        <form @submit.prevent="addTodo" id="form" hidden>
             <div class="form">
                 <input v-model="newTitle" type="text" class="form-control form-control px-1" placeholder="Add item" required>
                 <input v-model="newDate" type="date" class="form-control form-control px-1" placeholder="Date" id="input-date" required>
                 <input v-model="newPriority" type="number" min="1" max="4" class="form-control form-control-sm px-1" placeholder="Priority" id="input-priority" required>  
             </div>
 
-            <button type="submit" class="btn btn-success addTask"><i class="fa fa-plus"></i></button>
+            <button id="postButton" onclick="closeForm()" class="btn btn-danger addTask" hidden><i class="fa fa-paper-plane"></i></button>
         </form>
+
+        <button id="addButton" onclick="openForm()" class="btn btn-success addTask"><i class="fa fa-plus"></i></button>
+        
         
     </div>
 
@@ -68,5 +73,6 @@
     </footer>
 </body>
 <script src="vue.js"></script>
+<script src="script.js"></script>
 
 </html>

@@ -46,11 +46,23 @@ Vue.component("todo-item",{
 var app = new Vue({
     el:"#app",
     data:{
-        todos: list,
+        todos:[],
         newTitle:"",
         newDate:"",
         newPriority:4,
         sortByPriorityFlag:true
+    },
+    mounted() {
+        if (localStorage.getItem('todoList')) {
+            try {
+              this.todos = JSON.parse(localStorage.getItem('todoList'));
+            } catch(e) {
+              localStorage.removeItem('todoList');
+              this.todos = list;
+            }
+        }else{
+            this.todos = list;
+        }
     },
     methods:{
         addTodo: function(){
@@ -61,22 +73,29 @@ var app = new Vue({
                 checked:false
             }
             this.todos.push(newTodo);
+            this.saveTodos();
             this.newTitle = "";
             this.newDate = "";
             this.newPriority = 4;
 
             this.sortList();
         },
+        saveTodos: function(){
+            var parsed = JSON.stringify(this.todos);
+            localStorage.setItem('todoList', parsed);
+        },
         toggleCheck: function(index){
             this.todos[index].checked = !this.todos[index].checked;
             this.sortList();
+            this.saveTodos();
         },
         del: function(index){
             this.todos.splice(index, 1);
+            this.saveTodos();
         },
         sortList: function(){
             this.sortByPriorityFlag ? this.sortByPriority() : this.sortByDate();
-            
+            this.saveTodos();
         },
         sortByPriority: function(){
             this.todos.sort(function(a, b){
@@ -88,6 +107,7 @@ var app = new Vue({
             });
         },
         sortByDate: function(){
+            this.sortByPriorityFlag = false;
             this.todos.sort(function(a, b){
                 if(a.checked == b.checked){
                     return compareDates(a.date, b.date) == 0 ? a.priority - b.priority : compareDates(a.date, b.date);
@@ -95,6 +115,10 @@ var app = new Vue({
                     return !a.checked?-1:1;
                 }
             });
+        },
+        clearTodos: function(){
+            this.todos = [];
+            this.saveTodos();
         }
     }
 });
