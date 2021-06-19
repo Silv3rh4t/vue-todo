@@ -11,13 +11,13 @@ Changed Layout to make more mobile friendly
 
 ## v2.1
 
-Design problems resolved
-Added Sort by Priority and Sort by Date option
+* Design problems resolved
+* Added Sort by Priority and Sort by Date option
 
 ## v2.2
 
-Saving Data to Browser
-Added Clear button
+* Saving Data to Browser
+* Added Clear button
 
 ## Upcoming
 
@@ -25,8 +25,8 @@ nada.
 
 ### Ideas for future updates
 
-Theme change option
-Task Categories
+* Theme change option
+* Task Categories
 
 
 
