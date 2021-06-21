@@ -17,13 +17,14 @@
 </head>
 <body>
 
-    <div class="container-fluid py-4 mx-2" id="app">
+    <div class="container-fluid pt-3" id="app">
 
         <div class="row">
-            <div class="col-10">
+            <div class="col">
                 <h1 class="display-5 my-3"><mark>Todo</mark> List</h1>
             </div>
-            <div class="col-2 my-auto btn-toolbar">
+            <div class="col my-auto">
+                <div class="btn-toolbar float-end">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle btn-inline" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-sort-amount-asc"></i>
@@ -37,12 +38,10 @@
                 </div>
                 &nbsp;
                 <button class="btn btn-secondary btn-inline" @click="clearTodos" ><i class="fa fa-trash-o"></i></button>
+                </div>
             </div>
         </div>
-        
-        
-        
-        
+
         <hr>
 
         <todo-item
@@ -68,7 +67,7 @@
         
     </div>
 
-    <footer class="bg-dark text-center text-white container py-1 fixed-bottom">
+    <footer class="bg-dark text-center text-white container-sm py-1 fixed-bottom">
         <span class="lead">Made with <i class="fa fa-heart"></i> by <a href="https://silv3rh4t.github.io">Akhand Yaduvanshi</a></span>
     </footer>
 </body>
