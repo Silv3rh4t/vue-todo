@@ -50,7 +50,10 @@ var app = new Vue({
         newTitle:"",
         newDate:"",
         newPriority:4,
-        sortByPriorityFlag:true
+        sortByPriorityFlag:true,
+        openForm: false,
+        urlInput:"",
+        urlError: ""
     },
     mounted() {
         if (localStorage.getItem('todoList')) {
@@ -62,6 +65,9 @@ var app = new Vue({
             }
         }else{
             this.todos = list;
+        }
+        if (localStorage.getItem('themeURL')){
+            this.setUrlTheme(localStorage.getItem('themeURL'));
         }
     },
     methods:{
@@ -79,6 +85,7 @@ var app = new Vue({
             this.newPriority = 4;
 
             this.sortList();
+            this.openForm = false;
         },
         saveTodos: function(){
             var parsed = JSON.stringify(this.todos);
@@ -119,7 +126,53 @@ var app = new Vue({
         clearTodos: function(){
             this.todos = [];
             this.saveTodos();
-        }
+        },
+        urlInputFunc: function(){
+            if(this.urlInput.length != 0){
+                if(!verifyUrl(this.urlInput)){
+                    this.urlError = "Invalid URL";
+                } else {
+                    this.urlError = "";
+                }
+            } else {
+                this.urlError = "";
+            }  
+        },
+        enterPath: function(){
+            if(this.urlInput){
+                localStorage.setItem("themeURL", this.urlInput);
+                localStorage.removeItem("themeB64");
+
+                this.setUrlTheme(this.urlInput);
+            } else {
+                var file = document.querySelector("#fileEnter").files[0];
+                reader = new FileReader();
+
+                reader.onloadend = function() {
+                    var b64 = reader.result;
+                    localStorage.setItem("themeB64", b64);
+                    localStorage.removeItem("themeURL");
+
+                    setB64Theme(b64);
+                }
+                reader.readAsDataURL(file);
+            }
+        },
+        setUrlTheme: function(URL){
+            var bodyS = document.getElementsByTagName('body')[0].style;
+            bodyS.background = 'url('+URL+') no-repeat center center fixed';
+            bodyS["-webkit-background-size"] = "cover";
+
+            var v = new Vibrant(URL);
+            v.getPalette().then((palette) => {
+                document.documentElement.style.setProperty('--accent', palette["DarkVibrant"].hex);
+                document.documentElement.style.setProperty('--todoItem', palette["DarkVibrant"].hex+"80");
+                document.documentElement.style.setProperty('--bg', URL);
+            });
+        },
+        setB64Theme: function(b64){
+            var decodedByte = Base64.decode(b64);
+        }  
     }
 });
 
@@ -146,4 +199,14 @@ function compareDates(a, b){
     }else{
         return year_a - year_b;
     }
+}
+
+function verifyUrl(path){
+    var pattern = new RegExp('^(https?:\\/\\/)?'+ 
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ 
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+ 
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
+        '(\\?[;&amp;a-z\\d%_.~+=-]*)?'+ 
+        '(\\#[-a-z\\d_]*)?$','i');
+    return pattern.test(path);
 }

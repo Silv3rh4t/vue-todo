@@ -17,27 +17,52 @@
 </head>
 <body>
 
-    <div class="container-fluid pt-3" id="app">
+    <div class="container-fluid pt-4" id="app">
+
+        <div class="modal fade" id="modalBox" tabindex="-1" aria-labelledby="modalBoxLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form @submit.prevent="enterPath">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalBoxLabel">Custom Image</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p v-if="urlError" class="red">{{urlError}}</p>
+                            <p>Use a custom image background and the app theme will adapt to it. <br><b>[Experimental]</b></p>
+                            <label for="urlEnter">Enter URL:</label>                        
+                            <input @input="urlInputFunc" v-model="urlInput" class="input-control" type="text" name="" id="urlEnter" >
+                            <!--<br><br> OR <br>
+                            <input class="input-control" type="file" name="" id="fileEnter" :disabled="urlInput.length!=0">-->
+                        </div>
+                        <div class="modal-footer">
+                            <button id="url-button" type="submit" class="btn btn-outline-primary" :disabled="urlError.length!=0">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col">
-                <h1 class="display-5 my-3"><mark>Todo</mark> List</h1>
+                <h1 class="display-5"><mark>Todo</mark> List</h1>
             </div>
-            <div class="col my-auto">
+            <div class="col mt-3">
                 <div class="btn-toolbar float-end">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle btn-inline" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-sort-amount-asc"></i>
+                        <i class="fa fa-cog"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><h6 class="dropdown-header">Sort By</h6></li>   
                         <li><a @click="sortByPriority" class="dropdown-item" href="#">Priority</a></li>
                         <li><a @click="sortByDate" class="dropdown-item" href="#">Date</a></li>
-                        <li><a class="dropdown-item" href="#"></a></li>
+                        <li><h6 class="dropdown-header">Experimental Settings</h6></li>
+                        <li><a @click="urlError = ''" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalBox">Change theme</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a @click="clearTodos" class="dropdown-item red" href="#">Delete All</a></li>
                     </ul>
                 </div>
-                &nbsp;
-                <button class="btn btn-secondary btn-inline" @click="clearTodos" ><i class="fa fa-trash-o"></i></button>
                 </div>
             </div>
         </div>
@@ -52,17 +77,17 @@
             v-on:del="del($event)"
         ></todo-item>
 
-        <form @submit.prevent="addTodo" id="form" hidden>
+        <form @submit.prevent="addTodo" id="form" v-if="openForm">
             <div class="form">
                 <input v-model="newTitle" type="text" class="form-control form-control px-1" placeholder="Add item" required>
                 <input v-model="newDate" type="date" class="form-control form-control px-1" placeholder="Date" id="input-date" required>
                 <input v-model="newPriority" type="number" min="1" max="4" class="form-control form-control-sm px-1" placeholder="Priority" id="input-priority" required>  
             </div>
 
-            <button id="postButton" onclick="closeForm()" class="btn btn-danger addTask" hidden><i class="fa fa-paper-plane"></i></button>
+            <button id="postButton" class="btn btn-danger addTask" v-if="openForm" type="submit"><i class="fa fa-paper-plane"></i></button>
         </form>
 
-        <button id="addButton" onclick="openForm()" class="btn btn-success addTask"><i class="fa fa-plus"></i></button>
+        <button id="addButton" @click="openForm = true" class="btn btn-success addTask" v-if="!openForm"><i class="fa fa-plus"></i></button>
         
         
     </div>
@@ -71,7 +96,7 @@
         <span class="lead">Made with <i class="fa fa-heart"></i> by <a href="https://silv3rh4t.github.io">Akhand Yaduvanshi</a></span>
     </footer>
 </body>
+<script src="vibrant.min.js"></script>
 <script src="vue.js"></script>
-<script src="script.js"></script>
 
 </html>

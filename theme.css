@@ -1,12 +1,14 @@
 :root{
     --accent:#2c7a26;
+    --bg:"bg.jpg";
+    --todoItem: rgba(4, 48, 4, 0.562);
 }
 html{
     overflow-x:hidden;
 }
 
 body{
-    min-height:250px;
+    min-height:500px;
     background: url("bg.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -15,12 +17,15 @@ body{
     color: white;
     overflow-x:hidden;
 }
+.modal{
+    color:black;
+}
 
 mark{
     background-color: var(--accent);
 }
-.fa-trash-o,
-.fa-sort-amount-asc{
+
+.fa-cog{
     font-size:1.5em;
 }
 .addTask{
@@ -33,6 +38,7 @@ mark{
 }
 .btn-success{
     background-color: var(--accent);
+    border-color: var(--accent);
 }
 .btn-danger{
     background-color: red;
@@ -40,7 +46,8 @@ mark{
 
 .form{
     position: fixed;
-    bottom:100px;
+    bottom:90px;
+    left:30px;
 }
 .form-control{
     margin-bottom: 10px;
@@ -63,7 +70,7 @@ a:hover{
 }
 
 .todo-item{
-    background-color: rgba(4, 48, 4, 0.562);
+    background-color: var(--todoItem);
 }
 .todo-title{
     font-size: 1.2rem;
@@ -72,6 +79,7 @@ a:hover{
     color: grey;
     font-size: 0.7rem;
 }
+.red,
 .delete-button{
     color:red;
 }
