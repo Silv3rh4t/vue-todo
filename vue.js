@@ -159,15 +159,15 @@ var app = new Vue({
             }
         },
         setUrlTheme: function(URL){
-            var bodyS = document.getElementsByTagName('body')[0].style;
-            bodyS.background = 'url('+URL+') no-repeat center center fixed';
-            bodyS["-webkit-background-size"] = "cover";
-
             var v = new Vibrant(URL);
             v.getPalette().then((palette) => {
                 document.documentElement.style.setProperty('--accent', palette["DarkVibrant"].hex);
-                document.documentElement.style.setProperty('--todoItem', palette["DarkVibrant"].hex+"80");
+                document.documentElement.style.setProperty('--todoItem', palette["DarkVibrant"].hex+"c0");
                 document.documentElement.style.setProperty('--bg', URL);
+
+                var bodyS = document.getElementsByTagName('body')[0].style;
+            bodyS.background = 'url('+v._src+') no-repeat center center fixed';
+            bodyS["-webkit-background-size"] = "cover";
             });
         },
         setB64Theme: function(b64){
